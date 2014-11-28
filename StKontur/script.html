@@ -1,0 +1,315 @@
+﻿<!DOCTYPE html>
+
+<html>
+  <head>
+	<meta http-equiv="Content-Type" content="text/html" charset="utf-8">
+    <title>Список студентов</title>
+	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<style type="text/css" media="print"> div.no_print {display: none;} </style>
+	<script type="text/javascript" src="jquery.js"></script>
+	<script src="amcharts/amcharts.js" type="text/javascript"></script>
+    <script src="amcharts/serial.js" type="text/javascript"></script>
+	
+	<script type="text/javascript">
+		var chart;
+
+		var chartData = [
+			{
+				"attend": "",
+				"design": 2.0,
+				"programming": 2.0,
+				"physics": 2.0,
+				"foreign": 2.0,
+				"math": 2.0
+			}
+		];
+
+		AmCharts.ready(function () {
+			// SERIALL CHART
+			chart = new AmCharts.AmSerialChart();
+			chart.dataProvider = chartData;
+			chart.categoryField = "attend";
+			chart.plotAreaBorderAlpha = 0.2;
+			chart.rotate = true;
+
+			// AXES
+			// Category
+			var categoryAxis = chart.categoryAxis;
+			categoryAxis.gridAlpha = 0;
+			categoryAxis.axisAlpha = 0;
+			categoryAxis.gridPosition = "start";
+
+			// value
+			var valueAxis = new AmCharts.ValueAxis();
+			valueAxis.stackType = "100%";
+			valueAxis.gridAlpha = 0;
+			valueAxis.axisAlpha = 0;
+			//valueAxis.labelsEnabled = false;
+			chart.addValueAxis(valueAxis);
+
+			// GRAPHS
+			// first graph
+			var graph = new AmCharts.AmGraph();
+			graph.title = "Дизайн";
+			graph.labelText = "[[percents]]%";
+			graph.valueField = "design";
+			graph.type = "column";
+			graph.lineAlpha = 0;
+			graph.fillAlphas = 1;
+			graph.lineColor = "#C72C95";
+			graph.balloonText = "[[title]], [[category]]<br><span style='font-size:14px;'> ([[percents]]%)</span>";
+			chart.addGraph(graph);
+
+			// second graph
+			var graph = new AmCharts.AmGraph();
+			graph.title = "Программирование";
+			graph.labelText = "[[percents]]%";
+			graph.valueField = "programming";
+			graph.type = "column";
+			graph.lineAlpha = 0;
+			graph.fillAlphas = 1;
+			graph.lineColor = "#D8E0BD";
+			graph.balloonText = "[[title]], [[category]]<br><span style='font-size:14px;'> ([[percents]]%)</span>";
+			chart.addGraph(graph);
+
+			// third graph
+			var graph = new AmCharts.AmGraph();
+			graph.title = "Физика";
+			graph.labelText = "[[percents]]%";
+			graph.valueField = "physics";
+			graph.type = "column";
+			graph.lineAlpha = 0;
+			graph.fillAlphas = 1;
+			graph.lineColor = "#B3DBD4";
+			graph.balloonText = "[[title]], [[category]]<br><span style='font-size:14px;'> ([[percents]]%)</span>";
+			chart.addGraph(graph);
+
+			// fourth graph
+			var graph = new AmCharts.AmGraph();
+			graph.title = "Ин яз";
+			graph.labelText = "[[percents]]%";
+			graph.valueField = "foreign";
+			graph.type = "column";
+			graph.lineAlpha = 0;
+			graph.fillAlphas = 1;
+			graph.lineColor = "#69A55C";
+			graph.balloonText = "[[title]], [[category]]<br><span style='font-size:14px;'> ([[percents]]%)</span>";
+			chart.addGraph(graph);
+			
+			// fifth graph
+			var graph = new AmCharts.AmGraph();
+			graph.title = "Математика";
+			graph.labelText = "[[percents]]%";
+			graph.valueField = "math";
+			graph.type = "column";
+			graph.lineAlpha = 0;
+			graph.fillAlphas = 1;
+			graph.lineColor = "#F4E23B";
+			graph.balloonText = "[[title]], [[category]]<br><span style='font-size:14px;'> ([[percents]]%)</span>";
+			chart.addGraph(graph);
+			
+			// LEGEND
+			var legend = new AmCharts.AmLegend();
+			legend.position = "top";
+			legend.borderAlpha = 0.3;
+			legend.horizontalGap = 10;
+			//legend.switchType = "v";
+			chart.addLegend(legend);
+
+			chart.creditsPosition = "top-right";
+
+			// WRITE
+			chart.write("barchart");
+		});
+    </script>
+	
+	
+	<script type="text/javascript">
+		function getRandomInt(min, max) {
+		  return Math.floor(Math.random() * (max - min + 1)) + min;
+		}
+			
+		google.load("visualization", "1", {packages:["corechart"]});
+		google.setOnLoadCallback(drawChart);
+			
+		function drawChart() {
+		
+			var total = getRandomInt(100, 330);      // total hours
+			var be = getRandomInt(total / 2, total); // in classroom
+			var valid = 0; // valid reason
+			if(be != total) { // need if no total attented
+				valid = getRandomInt(0, total - be); 
+			}
+		
+			var data = google.visualization.arrayToDataTable([
+				['Task', 'Hours per Day'],
+				['Уважительная причина', valid],
+				['Прогулено без причины', total - be - valid],
+				['Посещено', be]
+			]);
+
+			var options = {
+			  title: 'Общая посещаемость',
+			  pieHole: 0.6,
+			};		
+			
+			var donutChart = new google.visualization.PieChart(document.getElementById('donutchart'));
+			donutChart.draw(data, options);
+			
+			/*var data = google.visualization.arrayToDataTable([
+			['Предмет', 'Дизайн', 'Программирование', 'Математика', 'Ин яз',
+			'Физика', { role: 'annotation' } ],
+			['', 2.0, 2.0, 2.0, 2.0, 2.0, '']
+			]);
+
+			var options = {
+				width: 600,
+				height: 400,
+				legend: { position: 'top', maxLines: 3 },
+				bar: { groupWidth: '75%' },
+				isStacked: true,
+			};
+			  
+			var chart = new google.visualization.BarChart(document.getElementById('barchart'));
+			chart.draw(data, options);*/
+		}
+    </script>
+	
+	<script type="text/javascript">
+			function showSelectedStudent(param, id) {
+				document.getElementById(id).innerHTML = param;
+				
+				drawChart();
+				parseLink(param, "surname", "name", "second_name");
+				
+				saveEdit();
+				
+				//location.reload(true);
+			}
+	</script>
+	
+	<script type="text/javascript">
+		function parseLink(param, id_name, id_surname, id_patr){
+			var a = param.split(' ');
+			
+			document.getElementById(id_surname).value = a[1];
+			document.getElementById(id_name).value = a[0];
+			document.getElementById(id_patr).value =a[2];
+        }
+	</script>
+	
+	<script type="text/javascript">
+		function emittedEdit(){			
+			document.getElementById("saveStudent").style.background = "blue";
+			document.getElementById("saveStudent").style.color = "white";
+        }
+		
+		function saveEdit(){			
+			document.getElementById("saveStudent").style.background = "white";
+			document.getElementById("saveStudent").style.color = "black";
+        }
+	</script>
+	
+	</head>
+	<body>
+		<div class="container">
+			<div class="no_print">
+				<div class="head">
+					<div style="float:left; font-size: 180%;">
+						Список студентов
+						<select name="group">
+							<option>Выберите группу</option>
+							<option selected value="ivt-465">ИВТ-465</option>
+							<option value="ivt-365">ИВТ-365</option>
+							<option value="ay-261">АУ-261</option>
+							<option value="xt-141">ХТ-141</option>
+						</select>
+					</div>
+					
+					<div style="float:right;">
+						<a href="#" onClick="window.print();">
+							<img src="images/button_print.png" width="120px" height="30px" alt="Print">
+						</a>
+					</div>
+					
+					<!--input type="submit" onClick="window.print();" value="Распечатать"></div-->
+					<div style="clear: left;"></div>
+				</div>
+			</div>
+			
+			<div class="container_lvl2">
+				<div class="no_print">
+					<hr color="blue" size="9"></hr>
+				
+					<br>
+					<div>&larr;<a href="#">Вернуться к списку группы</a></div>
+					<div id="selectedStudent" style="font-size: 150%;"></div>
+					<br>
+					
+					<div class="sidebar">
+						<ul class="nav">
+							<!--div class="not_select">
+								<a href="#">
+									<img src="images/button_addStudent.png" width="150px" height="30px" alt="Add">
+								</a>
+								<a href="#">
+									<img src="images/button_save.png" width="150px" height="30px" alt="Save">
+								</a>
+							</div-->
+							<input type="submit" onClick="#" id="addStudent" value="Добавить студента" style="font: 0.8em times;">
+							<input type="submit" onclick="saveEdit()" id="saveStudent" value="Сохранить изменения"
+							style="color: black;background: white; font: 0.8em times;">
+							
+							<li><a href="#" onclick="showSelectedStudent(this.innerHTML, 'selectedStudent')">Стешенко Александр Сергеевич</a></li>
+							<li><a href="#" onclick="showSelectedStudent(this.innerHTML, 'selectedStudent')">Агафонов Глеб Владимирович</a></li>
+							<li><a href="#" onclick="showSelectedStudent(this.innerHTML, 'selectedStudent')">Зайцев Антон Олегович</a></li>
+							<li><a href="#" onClick="showSelectedStudent(this.innerHTML, 'selectedStudent')">Долбин Алексей Владимирович</a></li>
+							<li><a href="#" onClick="showSelectedStudent(this.innerHTML, 'selectedStudent')">Опейкин Александр Александрович</a></li>
+							<li><a href="#" onClick="showSelectedStudent(this.innerHTML, 'selectedStudent')">Бирюков Сергей Александрович</a></li>
+							<li><a href="#" onClick="showSelectedStudent(this.innerHTML, 'selectedStudent')">Вяхирев Александр Николаевич</a></li>
+							<li><a href="#" onClick="showSelectedStudent(this.innerHTML, 'selectedStudent')">Климов Павел Владимирович</a></li>
+						</ul>
+					</div>
+				</div>
+				
+				<div class="stylelist">
+					<div style="float:left; font-size: 130%;">Стандартные личные данные</div>
+					<div class="no_print" style="float:right">
+						<a href="#">Удалить</a>
+					</div><br>
+				<!--/div-->
+			
+				
+					<form>
+						<label for="surname">Фамилия</label>
+						<input type="text" placeholder="Фамилия" onchange="emittedEdit()" id="surname" pattern="[А-Яа-яЁё\-]{4,15}" required><span></span><br>
+						<label for="name">Имя</label> 
+						<input type="text" placeholder="Имя" onchange="emittedEdit()" id="name" pattern="[А-Яа-яЁё]{4,15}" required><span></span><br>
+						<label for="second_name">Отчество</label> 
+						<input type="text" placeholder="Отчество" onchange="emittedEdit()" id="second_name" pattern="[А-Яа-яЁё]{4,15}" required><span></span><br>
+						<label for="sex">Пол</label> 
+						<input type="radio" name="sex" value="male" checked onchange="emittedEdit()">Мужской
+						<input type="radio" name="sex" value="female">Женский<br>
+						<label for="birth">Дата рождения</label> 
+						<input type="date" name="birth" required onchange="emittedEdit()"><span></span><br>
+						<label for="admission">Дата поступления</label> 
+						<input type="date" name="admission" required onchange="emittedEdit()"><span></span><br>
+					</form>
+					
+					<br>
+					<hr></hr>
+					<br>
+						
+					<div style="float:left; font-size: 150%;">Списочек посещаемых предметов</div>
+					<div class="no_print" style="float:right">
+						<a href="#">Добавить предмет</a><br><br>
+					</div>
+					
+					<div id="barchart" style="width: 70%; height: 150px; float:right; "></div>
+					<div id="donutchart" style="width: 70%; height: 100%; float:right;"></div>
+				</div>
+			</div>
+		</div>
+	</body>	
+</html>

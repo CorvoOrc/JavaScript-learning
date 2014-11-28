@@ -1,0 +1,108 @@
+form{  
+  margin:10px;
+  font-family: 'Times New Roman', Times, serif;
+}
+body{
+	background:url(images/bg.png);
+}
+input, legend{
+  margin: 10px 0;
+}
+label{
+  display:inline-block;
+  width:125px;
+}
+input[type="submit"]{
+  font: 0.8em times;
+  width:150px;
+}
+input.text:focus {
+    border: 1px solid #39c;
+}
+.focus {
+    border: 1px solid #39c;
+}
+input:required {
+   /*content:url('http://findicons.com/files/icons/1583/silk_companion_1/16/decline.png');*/
+}
+input:valid {
+   border:1px solid #96f;
+   background-color:white;
+   
+   border-radius: 3px; /*закругление углов (общее)*/
+   -webkit-border-radius: 3px; /*закругление углов (Google Chrome)*/
+   -moz-border-radius: 3px; /*закругление углов (FireFox)*/
+   -khtml-border-radius: 3px; /*закругление углов (Safari)*/
+}
+input:invalid {
+	border:2px solid #f68;
+	background-color:#fee;
+}
+input:invalid + span::after{
+	content: "Поле обязательно к заполнению";
+	color: #f68; /* Цвет текста */ 
+	font-size: 100%; /* Размер шрифта */ 
+	padding: 5px; /* Поля вокруг текста */
+}
+.head{
+}
+   
+.container {
+	width: 960px;
+	background-color: none;
+	margin: 0 auto; /* При указании автоматического значения по сторонам в совокупности с шириной макет будет центрироваться. */
+}
+.container_nested {
+	/*width: 900px;*/
+	/*background-color: none;*/
+	/*margin: 0 auto; /* При указании автоматического значения по сторонам в совокупности с шириной макет будет центрироваться. */
+}
+.stylelist {
+	/*width: 900px;*/
+	background-color: none;
+	/*margin: 0 auto; /* При указании автоматического значения по сторонам в совокупности с шириной макет будет центрироваться. */
+}
+.sidebar {
+	float: left;
+	width: 220px;
+	/*background: linear-gradient(to top, #6C6B67, #ffffff);*/
+	background-color: #E3E1DB;
+	padding-bottom: 10px;
+}
+.gradient {
+    background: linear-gradient(to top, #6C6B67, #ffffff);
+    /*padding: 10px;
+    border: 1px solid #333;*/
+}
+/*a:link {color:#4D84F3;}      /* unvisited link */
+/*a:visited {color:#4D84F3;}  /* visited link */
+/*a:hover {color:#000080;}  /* mouse over link */
+/*a:active {color:#000000;}  /* selected link */
+ul.nav {
+	list-style: none;  /*Удаляет маркер списка.*/
+	/*border-top: 1px solid #666; /* Создает верхнюю границу ссылок — все остальные размещаются по нижней границе в LI. */
+	margin-bottom: 15px; /* Создает пространство между навигацией по содержимому ниже. */
+}
+
+ul.nav li {
+	/*border-bottom: 1px solid #666; /* Разделяет кнопки. */
+}
+
+ul.nav a, ul.nav a:visited { /* Группировка этих селекторов гарантирует, что ссылки будут выглядеть как кнопки даже после того, как пользователь перейдет по ним. */
+	padding: 5px 5px 5px 15px;
+	display: block; /* Наделяет ссылку свойствами блока, из-за чего она заполняет весь содержащий ее элемент LI. При этом вся область реагирует на щелчок мышью. */
+	width: 160px;  /*Такая ширина позволит в IE6 нажимать всю кнопку целиком. Если поддержка IE6 не нужна, то эту строку можно удалить. Чтобы вычислить правильную ширину, вычтите ширину полей этой ссылки из ширины контейнера боковой панели. */
+	text-decoration: none;
+	background-color: none;
+	/*background-color: #FF000F;*/
+}
+
+ul.nav a:hover,ul.nav a:active ul.nav a:focus { /* Изменяет цвет текста и фона при навигации с помощью клавиатуры и мыши. */
+	background-color: #FFFFFF;
+	color: #000;
+}*/
+
+/*Поддержка HTML5 — создает новые теги HTML5 display:block для корректного отображения этих тегов браузерами. */
+header, section, footer, aside, article, figure {
+	display: block;
+}
